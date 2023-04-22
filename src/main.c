@@ -75,11 +75,11 @@ void process_input(void) {
 ///////////////////////////////////////////////////////////////////////////////
 void setup(void) {
     // Initialize the ball object moving down at a constant velocity
-    ball.x = 20;
+    ball.x = 10;
     ball.y = 20;
-    ball.width = 15;
-    ball.height = 15;
-    ball.vel_x = 100;
+    ball.width = 20;
+    ball.height = 20;
+    ball.vel_x = 180;
     ball.vel_y = 140;
 }
 
@@ -97,11 +97,21 @@ void update(void) {
     ball.x += ball.vel_x * delta_time;
     ball.y += ball.vel_y * delta_time;
 
-    // Check for ball collision with the walls
-    if (ball.x <= 0 || ball.x + ball.width >= WINDOW_WIDTH) {
+    // Check for ball collision with the window borders
+    if (ball.x < 0) {
+        ball.x = 0;
         ball.vel_x = -ball.vel_x;
     }
-    if (ball.y < 0 || ball.y + ball.height >= WINDOW_HEIGHT) {
+    if (ball.x + ball.height > WINDOW_WIDTH) {
+        ball.x = WINDOW_WIDTH - ball.width;
+        ball.vel_x = -ball.vel_x;
+    }
+    if (ball.y < 0) {
+        ball.y = 0;
+        ball.vel_y = -ball.vel_y;
+    }
+    if (ball.y + ball.height > WINDOW_HEIGHT) {
+        ball.y = WINDOW_HEIGHT - ball.height;
         ball.vel_y = -ball.vel_y;
     }
 }
